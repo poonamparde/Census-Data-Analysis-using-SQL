@@ -119,20 +119,4 @@ select distinct State from Project_SQL..dataset1 where lower(state) like 'a%'
   Project_SQL..dataset1 as a  inner join Project_SQL..dataset2 as b  on a.District= b.District ) c) as d
   group  by d.state
 
-
-
-   
-  -- population in previouse census and current census popluation by state
-  select e.state, sum(e.previous_census_popluation) as prevoius_census_popluation, sum(current_census_population) as current_census_population from
-  (select d.district, d.state, round(d.population / (1 + d.growth), 0)as previous_census_popluation, d.population as current_census_population from 
-  (select a.district, a.state, a.growth as growth, b.Population from Project_SQL..dataset1 as a inner join Project_SQL..dataset2 as b on a.District = b.District) d) e
-  group by e.State
-
-
-
-  --window
-  --output top 3 district from each state with highest literacy rate (only top 3)
-  select a. * from 
-  (select district, state, literacy, rank() over (partition by state order by literacy desc) as ranks from Project_SQL..dataset1) as a
-  where a.ranks in (1,2,3) order by state
   
