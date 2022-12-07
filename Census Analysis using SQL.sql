@@ -112,11 +112,5 @@ select distinct State from Project_SQL..dataset1 where lower(state) like 'a%'
 
 
 
- -- total literacy rate 
- select d.state, sum(literate_people)as total_literate_pop, sum(illiterate_people) as total_illiterate_pop from 
- (select c.district, c.state , round(c.literacy_ratio * c.population, 0) as literate_people, round((1 - c.literacy_ratio)* c.population, 0) as illiterate_people from
- (select a.District, a.state, a.literacy/100 as literacy_ratio, b.population from 
-  Project_SQL..dataset1 as a  inner join Project_SQL..dataset2 as b  on a.District= b.District ) c) as d
-  group  by d.state
 
   
